@@ -1,6 +1,8 @@
 package edu.temple.audiobb
 
-class BookList {
+import java.io.Serializable
+
+class BookList(): Serializable {
     var myBookList: List<Book> = listOf()
 
 

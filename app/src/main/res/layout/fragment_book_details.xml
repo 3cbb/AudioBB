@@ -3,4 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookDetailsFragment"/>
+    tools:context=".BookDetailsFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="Name of Book"
+        android:textAlignment="center"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="Name of Author"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:translationY="46dp" />
+</FrameLayout>

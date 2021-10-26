@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,11 +24,20 @@ class BookDetailsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var layout : View
+
+    private lateinit var textView : TextView
+    private lateinit var textView2 : TextView
+
+    private lateinit var viewModel : MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
+            viewModel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
         }
     }
 
@@ -34,7 +46,23 @@ class BookDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_details, container, false)
+        layout = inflater.inflate(R.layout.fragment_book_details, container, false)
+
+        textView = layout.findViewById(R.id.textView)
+        textView2 = layout.findViewById(R.id.textView2)
+
+        ViewModelProvider(requireActivity()).get(MyViewModel::class.java).getBook().observe(requireActivity(), { it ->
+            setInformation(it)
+        })
+
+
+
+        return layout
+    }
+
+    fun setInformation(_book : Book){
+        textView.text = _book.author
+        textView2.text = _book.title
     }
 
     companion object {
