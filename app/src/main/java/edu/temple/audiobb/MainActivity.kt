@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface {
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
                     is BookDetailsFragment
-            && myViewModel.getBook().value != null)
+            && !myViewModel.isEmptyorNull())
             supportFragmentManager.popBackStack()
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) is BookDetailsFragment
@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.fragmentContainerView2, BookDetailsFragment())
                     .commit()
-        } else if(myViewModel.getBook().value != null) {
+        } else if(!myViewModel.isEmptyorNull()) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView, BookDetailsFragment())
+                .replace(R.id.fragmentContainerView, BookDetailsFragment())
                 .addToBackStack(null)
                 .commit()
         }

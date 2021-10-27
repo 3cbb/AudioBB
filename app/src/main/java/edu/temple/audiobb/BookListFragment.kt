@@ -62,6 +62,7 @@ class BookListFragment : Fragment() {
 
 
             ViewModelProvider(requireActivity()).get(MyViewModel::class.java).setBook(bookList.get(itemPosition))
+            (activity as EventInterface).selectionMade()
 
         }
 
