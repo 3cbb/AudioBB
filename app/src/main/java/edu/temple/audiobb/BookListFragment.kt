@@ -1,5 +1,6 @@
 package edu.temple.audiobb
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -86,6 +87,10 @@ class BookListFragment : Fragment() {
             return fragment
         }
     }
+
+    interface EventInterface {
+        fun selectionMade()
+    }
 }
 
 class BookAdapter(var _context: Context, private val _dataSet: BookList, _ocl : View.OnClickListener) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
@@ -100,11 +105,11 @@ class BookAdapter(var _context: Context, private val _dataSet: BookList, _ocl : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return ViewHolder(TextView(parent.context).apply { layoutParams = ViewGroup.LayoutParams(300, 300) }, ocl)
+        return ViewHolder(TextView(parent.context).apply { layoutParams = ViewGroup.LayoutParams(1000, 100) }, ocl)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet.get(position).title
+        viewHolder.textView.text = dataSet.get(position).title + " - " + dataSet.get(position).author
 
     }
 

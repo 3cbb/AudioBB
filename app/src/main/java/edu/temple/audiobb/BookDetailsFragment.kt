@@ -61,8 +61,8 @@ class BookDetailsFragment : Fragment() {
     }
 
     fun setInformation(_book : Book){
-        textView.text = _book.author
-        textView2.text = _book.title
+        textView.text = _book.title
+        textView2.text = _book.author
     }
 
     companion object {

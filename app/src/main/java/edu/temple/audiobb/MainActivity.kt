@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BookListFragment.EventInterface {
 
 
     lateinit var myViewModel: MyViewModel
@@ -51,16 +51,16 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.fragmentContainerView2, BookDetailsFragment())
                     .commit()
-        } else if(myViewModel.getBook().value != null) { // If moving to single-pane
-            supportFragmentManager.beginTransaction()                 // but a color was selected
-                .add(R.id.fragmentContainerView, BookDetailsFragment())              // before the switch
+        } else if(myViewModel.getBook().value != null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainerView, BookDetailsFragment())
                 .addToBackStack(null)
                 .commit()
         }
     }
 
     override fun selectionMade() {
-        // only respond if there is a single container
+
         if (!twoFragments)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, BookDetailsFragment())
@@ -71,9 +71,6 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        // A single way to "clear" the selected book so that
-        // if doesn't remain selected. Remove it when the user
-        // hits Back
         myViewModel.setBook(Book("",""))
     }
 
