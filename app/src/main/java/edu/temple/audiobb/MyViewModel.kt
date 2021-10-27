@@ -45,6 +45,5 @@ class MyViewModel : ViewModel() {
         }
 
     return isEmptyorNull
-
     }
 }

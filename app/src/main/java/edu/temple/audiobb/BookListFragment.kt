@@ -51,19 +51,11 @@ class BookListFragment : Fragment() {
 
         recyclerView = layout.findViewById(R.id.recyclerView)
 
-
-
-
-
-
         val onClickListener = View.OnClickListener {
             val itemPosition = recyclerView.getChildAdapterPosition(it)
 
-
-
             ViewModelProvider(requireActivity()).get(MyViewModel::class.java).setBook(bookList.get(itemPosition))
             (activity as EventInterface).selectionMade()
-
         }
 
         recyclerView.adapter = BookAdapter(requireActivity(), bookList, onClickListener)
@@ -99,19 +91,21 @@ class BookAdapter(var _context: Context, private val _dataSet: BookList, _ocl : 
     private val dataSet = _dataSet
     val ocl = _ocl
 
-    class ViewHolder(_view: TextView, ocl: View.OnClickListener) : RecyclerView.ViewHolder(_view) {
-        val textView = _view.apply { setOnClickListener(ocl) }
+    class ViewHolder(_view: View, ocl: View.OnClickListener) : RecyclerView.ViewHolder(_view) {
+        val textView = _view.findViewById<TextView>(R.id.textView4).apply { setOnClickListener(ocl) }
+        val textView2 = _view.findViewById<TextView>(R.id.textView3).apply { setOnClickListener(ocl) }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        return ViewHolder(TextView(parent.context).apply { layoutParams = ViewGroup.LayoutParams(1000, 100) }, ocl)
+        val constraintLayout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.book_list_item_layout, parent, false)
+        return ViewHolder(constraintLayout, ocl)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet.get(position).title + " - " + dataSet.get(position).author
-
+        viewHolder.textView.text = dataSet.get(position).title
+        viewHolder.textView2.text = dataSet.get(position).author
     }
 
     override fun getItemCount() = dataSet.size()
