@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +29,7 @@ class BookDetailsFragment : Fragment() {
 
     private lateinit var textView : TextView
     private lateinit var textView2 : TextView
+    private lateinit var imageView : ImageView
 
     private lateinit var viewModel : MyViewModel
 
@@ -51,6 +53,8 @@ class BookDetailsFragment : Fragment() {
         textView = layout.findViewById(R.id.textView)
         textView2 = layout.findViewById(R.id.textView2)
 
+        imageView = layout.findViewById(R.id.imageView)
+
         ViewModelProvider(requireActivity()).get(MyViewModel::class.java).getBook().observe(requireActivity(), { it ->
             setInformation(it)
         })
@@ -63,6 +67,10 @@ class BookDetailsFragment : Fragment() {
     fun setInformation(_book : Book){
         textView.text = _book.title
         textView2.text = _book.author
+
+        Picasso.get()
+            .load(_book.coverURL)
+            .into(imageView)
     }
 
     companion object {

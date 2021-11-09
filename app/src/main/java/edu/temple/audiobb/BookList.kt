@@ -29,7 +29,7 @@ class BookList(): Serializable {
         if (-1 < _index && _index < size()){
             tempBook = myBookList[_index]
         } else {
-            tempBook = Book("No Book at index$_index", "Error")
+            tempBook = Book("No Book at index$_index", "Error", 0, "http://")
         }
 
         return tempBook
