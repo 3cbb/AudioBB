@@ -1,8 +1,10 @@
 package edu.temple.audiobb
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 
@@ -21,6 +23,12 @@ class MainActivity : AppCompatActivity(), BookListFragment.EventInterface {
         var myBookList = BookList()
 
         myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+
+        var myButton = findViewById<Button>(R.id.button2)
+
+        myButton.setOnClickListener {
+            val launchActivityIntent = Intent(this, BookSearchActivity::class.java)
+            startActivity(launchActivityIntent) }
 
 
         twoFragments = findViewById<View>(R.id.fragmentContainerView2) != null
