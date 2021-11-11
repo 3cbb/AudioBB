@@ -38,4 +38,8 @@ class BookList(): Serializable {
     fun size() : Int{
         return myBookList.size
     }
+
+    fun clear() {
+        myBookList= listOf()
+    }
 }

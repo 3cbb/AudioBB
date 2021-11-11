@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONException
 
 class BookSearchActivity : AppCompatActivity() {
 
@@ -26,6 +29,8 @@ class BookSearchActivity : AppCompatActivity() {
 
         button.setOnClickListener{
             bookList = search(editText.text.toString())
+
+
         }
 
 
@@ -36,13 +41,27 @@ class BookSearchActivity : AppCompatActivity() {
         var searchURL = "https://kamorris.com/lab/cis3515/search.php?term=$_index"
         var tempString : String
 
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, searchURL, null, { response ->
-            tempString = "Response: %s".format(response.toString())
-        }, { error ->
-            // TODO: Handle error
-        })
+        val request = JsonArrayRequest(Request.Method.GET, searchURL, null, Response.Listener {
+                response ->try {
+            for (i in 0 until response.length()) {
+                val book = response.getJSONObject(i)
+                val title = book.getString("title")
+                val id = book.getInt("id")
+                val coverURL = book.getString("cover_url")
+                val author = book.getString("author")
+                bookList = bookList + Book(title, author, id, coverURL)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        }, Response.ErrorListener { error -> error.printStackTrace() })
 
-        requestQueue.add(jsonObjectRequest)
+
+
+
+
+
+        requestQueue.add(request)
 
 
         return bookList
